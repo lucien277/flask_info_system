@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {{ extend "layout.html" }}
+
+    {{ block content }}
+    {{ % import "bootstrap/wtf.html" as wtf % }}
+
+    {{ block title }}Register{{ endblock }}
+
+    {{ block page_content }}
+    <div class="header">
+        <h1>hello, {% if name %}{{ name }}{% else %}Stranger{% end if %} </h1>
+    </div>
+    {{ wtf.quick_form(form) }}
+    {{ endblock }}
+
+
+</body>
+</html>
+
+    <!-- <form action="" method="post">
+        {{form.hidden_tag()}}
+        {{form.name.label}}: {{form.name(size=20)}}<br>
+        {{form.password.label}}: {{form.password(size=20)}}<br>
+        {{form.submit()}}
+    </form> -->
