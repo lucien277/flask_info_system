@@ -1,5 +1,4 @@
-from app import app
-
+from app.router import app
 
 app.secret_key = 'this is secret key'
 

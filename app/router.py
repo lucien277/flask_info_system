@@ -1,8 +1,11 @@
 from flask import Flask,redirect,render_template,request,url_for
 from flask_sqlalchemy import SQLAlchemy
-from app import app
+from flask_bootstrap import Bootstrap
+from .config import Config
 
-
+app = Flask(__name__)
+app.config.from_object(Config)
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:12345678@localhost:3307/选课系统?charset=utf8mb4'
 
 from .form import RegistForm
 
@@ -10,6 +13,20 @@ from .form import RegistForm
 @app.route('/index')
 def index():
     return render_template('index.html')
+
+@app.route('/login',methods=['GET','POST'])
+def login():
+    username = {'username':'Miguel'}
+    password = {'password':'12345678'}
+    if request.method == 'POST':
+        name = request.form.get('name')
+        password = request.form.get('password')
+        if username == 'Miguel' and password == '12345678':
+            return render_template('index.html')
+        else:
+            return '登录失败'
+    else:
+        return render_template('login.html')
 
 
 @app.route('/regist',methods=['GET','POST'])
