@@ -1,13 +1,11 @@
-from flask import Flask,redirect,render_template,request,url_for,flash
-from flask_bootstrap import Bootstrap
-from .config import Config
+from flask import redirect,render_template,request,url_for,flash
 
-app = Flask(__name__)
-bootstrap = Bootstrap(app)
-app.config.from_object(Config)
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:12345678@localhost:3307/选课系统?charset=utf8mb4'
+from . import app
 
+from .models import db
+from .models import User,Post
 from .form import RegistForm,loginForm
+
 
 @app.route('/')
 @app.route('/index')
@@ -20,19 +18,22 @@ def test():
 
 
 #用户注册
-@app.route('/regist',methods=['GET','POST'])
-def regist():
-    if request.method == 'GET':
-        RetForm = RegistForm()
-        return render_template('regist.html', form=RetForm)
-    else:
-        RetForm = RegistForm()
-        if RetForm.validate():  #validate函数前端实时验证用户输入格式是否正确
-            print('接收到的参数为：', RetForm.data)
-            return '''<script>alert('您的注册请求已提交!');</script>'''
-        else:
-             print(RetForm.errors)
-        return render_template('login.html', form=RetForm)
+# @app.route('/regist',methods=['GET','POST'])
+# def regist():
+#     if request.method == 'GET':
+#         RetForm = RegistForm()
+#         return render_template('regist.html', form=RetForm)
+#     else:
+#         RetForm = RegistForm(request.form)
+#         if RetForm.validate():  #validate函数前端实时验证用户输入格式是否正确
+#             session = Session()
+#             new_user = User(username=RetForm.username.data, password=RetForm.password.data, email=RetForm.email.data)
+#             session.add(new_user)
+#             session.commit()
+#             return '''<script>alert('您的注册请求已提交!');</script>'''
+#         else:
+#              print(RetForm.errors)
+#         return render_template('login.html', form=RetForm)
 
 #用户登录
 @app.route('/login',methods=['GET','POST'])
