@@ -13,7 +13,7 @@ def test():
 def index():
     return render_template('index.html')
 
-
+# 登录
 @app.route('/login',methods=['GET','POST'])
 def login():
     if current_user.is_authenticated:
@@ -24,14 +24,15 @@ def login():
         user = User.query.filter_by(name=login_form.username.data).first()
         if user is None or not user.check_password(login_form.password.data):
             flash('用户名不存在或密码错误')
+            return redirect(url_for('login'))
 
         login_user(user,remember=login_form.remember_me.data)
 
         # 重定向到next_page
         next_page = request.args.get('next')
         if not next_page or next_page.startswith('/'):
-            next_page = url_for('index')
-        return redirect(next_page)
+            next_page = url_for('/index') # 如果next_page不存在或者是一个绝对路径，那么就重定向到首页
+        return redirect(next_page) # 重定向到首页
     return render_template('login.html',title="Sign in",form=login_form)
 
 @app.route('/logout')
@@ -46,7 +47,7 @@ def regist():
         return redirect(url_for("index")) # 如果已经登录，直接跳转到首页
     regist_form = RegistForm()
     if regist_form.validate_on_submit():
-        user = User(usrname=regist_form.username.data)
+        user = User(username=regist_form.username.data)
         user.set_password(regist_form.password.data)
         db.session.add(user)
         db.session.commit()

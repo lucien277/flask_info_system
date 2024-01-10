@@ -26,7 +26,7 @@ class RegistForm(FlaskForm):
         validators=[
             DataRequired(message='密码不能为空'),
             Length(min=3,max=12,message='密码长度必须在3-12位之间'),
-            Regexp(regex="[0-9a-zA-Z]{ 3,}",message='重新设置密码')
+            # Regexp(regex="[0-9a-zA-Z]{ 3,}",message='重新设置密码')
             ],
         widget=widgets.PasswordInput(),
         render_kw={'class': 'form-control',
