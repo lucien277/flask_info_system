@@ -11,6 +11,7 @@ class loginForm(FlaskForm):
     password = StringField('password',validators=[DataRequired()])
     remember_me = BooleanField('remember_me')
     submit = SubmitField('submit')
+
 class RegistForm(FlaskForm):
     username = simple.StringField(
         label='用户名:',
