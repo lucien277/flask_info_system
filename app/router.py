@@ -8,6 +8,12 @@ from flask_login import current_user,login_user,logout_user,login_required
 def test():
     return render_template('test.html')
 
+@app.route('/unfinished')
+def unfinished():
+    return render_template('unfinished.html')
+
+
+# 首页
 @app.route('/')
 @app.route('/index')
 def index():
@@ -68,8 +74,13 @@ def course_page():
 # 查询课程列表
 @app.route('/course/<course_model>', methods=['GET'])
 def show_courses_by_model(course_model):
-    courses = Course.find_by_course_model(course_model) # 通过课程模块查询课程
-    return render_template('courses.html', courses=courses)
+        #按照课程模块首字母模糊查询课程，没完成该功能
+    # if len(course_model) == 1:
+    #     courses = Course.find_by_course_letter(course_model)
+    #     return render_template('courses.html', courses=courses)
+    # else:
+        courses = Course.find_by_course_model(course_model)  # 通过课程模块查询课程
+        return render_template('courses.html', courses=courses)
 
 
 

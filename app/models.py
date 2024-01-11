@@ -1,4 +1,5 @@
 from app import db
+from sqlalchemy import func
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin
 from app import login
@@ -56,6 +57,9 @@ class Course(db.Model):
     @classmethod
     def find_by_course_model(self, model):
         return self.query.filter_by(course_model=model).all()
+
+    def find_by_course_letter(cls, letter): # 通过模块字母查询课程
+        return cls.query.filter(cls.course_model.like(letter + '%')).all()
 
     def __repr__(self):
         return '<Course %r>' % self.name
