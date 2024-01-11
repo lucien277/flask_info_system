@@ -19,7 +19,7 @@ def login():
     if current_user.is_authenticated:
         return redirect(url_for("index"))
 
-    login_form = loginForm()   # 实例化表单
+    login_form = loginForm()
     if login_form.validate_on_submit():
         user = User.query.filter_by(name=login_form.username.data).first()
         if user is None or not user.check_password(login_form.password.data):
@@ -27,13 +27,12 @@ def login():
             return redirect(url_for('login'))
 
         login_user(user,remember=login_form.remember_me.data)
-
         # 重定向到next_page
         next_page = request.args.get('next')
         if not next_page or next_page.startswith('/'):
-            next_page = url_for('/index') # 如果next_page不存在或者是一个绝对路径，那么就重定向到首页
+            next_page = url_for('index') # 如果next_page不存在或者是一个绝对路径，那么就重定向到首页
         return redirect(next_page) # 重定向到首页
-    return render_template('login.html',title="Sign in",form=login_form)
+    return render_template('login.html',title="login",form=login_form)
 
 @app.route('/logout')
 def logout():
@@ -55,11 +54,16 @@ def regist():
         return redirect(url_for('login'))
     return render_template('regist.html',title="regist",form=regist_form)
 
-
+# 个人主页
 @app.route('/user/<name>')
 @login_required
 def user(name):
     return render_template('user.html',name=name)
+
+
+@app.route('/course_page')
+def user_page():
+    return render_template('course_page.html')
 
 
 

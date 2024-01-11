@@ -5,10 +5,25 @@ from wtforms.fields import simple
 from app.models import User
 
 class loginForm(FlaskForm):
-    username = StringField('name', validators=[DataRequired()])
-    password = StringField('password',validators=[DataRequired()])
+    username = simple.StringField(
+        label='name',
+        validators=[DataRequired(message='用户名不能为空')],
+        widget=widgets.TextInput(),
+        render_kw={'class': 'form-control',
+                   "placeholder":"输入用户名"}
+        )
+    password = simple.StringField(
+        label='password',
+        validators=[DataRequired("密码不能为空")],
+        widget=widgets.PasswordInput(),
+        render_kw={'class': 'form-control',
+                   "placeholder":"输入密码"}
+        )
+
     remember_me = BooleanField('remember_me')
-    submit = SubmitField('submit')
+    submit = simple.SubmitField(
+        label='submit',
+        render_kw={'class': 'btn btn-primary'})
 
 class RegistForm(FlaskForm):
     username = simple.StringField(
