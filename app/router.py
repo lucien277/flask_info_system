@@ -1,6 +1,6 @@
 from flask import redirect,render_template,request,url_for,flash
 from . import app,db
-from .models import User,Post
+from .models import *
 from .form import RegistForm,loginForm
 from flask_login import current_user,login_user,logout_user,login_required
 
@@ -60,10 +60,16 @@ def regist():
 def user(name):
     return render_template('user.html',name=name)
 
-
+# 专业课程页面
 @app.route('/course_page')
-def user_page():
+def course_page():
     return render_template('course_page.html')
+
+# 查询课程列表
+@app.route('/course/<course_model>', methods=['GET'])
+def show_courses_by_model(course_model):
+    courses = Course.find_by_course_model(course_model) # 通过课程模块查询课程
+    return render_template('courses.html', courses=courses)
 
 
 

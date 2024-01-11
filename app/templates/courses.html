@@ -1,0 +1,32 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}Courses{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h1>Courses with Model: {{ course_model }}</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>课程名称</th>
+                        <th>课程学分</th>
+                        <th>课程模块</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for course in courses %}
+                        <tr>
+                            <td>{{ course.course_name }}</td>
+                            <td>{{ course.credit }}</td>
+                            <td>{{ course.course_model }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

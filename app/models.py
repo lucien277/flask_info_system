@@ -44,3 +44,18 @@ class Post(db.Model):
 
     def __repr__(self):
         return '<Post %r>' % self.title
+
+class Course(db.Model):
+    __tablename__ = 'course'
+    course_id = db.Column(db.Integer,primary_key=True)
+    course_name = db.Column(db.String())
+    credit = db.Column(db.Integer)
+    smester = db.Column(db.Integer)
+    course_model = db.Column(db.String(80))
+
+    @classmethod
+    def find_by_course_model(self, model):
+        return self.query.filter_by(course_model=model).all()
+
+    def __repr__(self):
+        return '<Course %r>' % self.name
