@@ -14,7 +14,7 @@ class loginForm(FlaskForm):
         )
     password = simple.StringField(
         label='password',
-        validators=[DataRequired("密码不能为空")],
+        validators=[DataRequired(message="密码不能为空")],
         widget=widgets.PasswordInput(),
         render_kw={'class': 'form-control',
                    "placeholder":"输入密码"}
