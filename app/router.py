@@ -23,8 +23,8 @@ def index():
 
 @app.route('/login',methods=['GET','POST'])
 def login():
-    if current_user.is_authenticated:  # 如果已经登录，直接跳转到首页
-        return redirect(url_for("index"))
+    # if current_user.is_authenticated:  # 如果已经登录，直接跳转到首页
+    #     return redirect(url_for("index"))
 
     if request.method == 'POST':  # 如果是 POST 请求
         login_form = loginForm()
@@ -40,7 +40,7 @@ def login():
 
     return render_template('login.html', title="login", form=login_form)
 
-# 推出登陆
+# 退出登陆
 @app.route('/logout')
 def logout():
     logout_user()
@@ -49,8 +49,8 @@ def logout():
 # 注册
 @app.route('/regist',methods=['GET','POST'])
 def regist():
-    if current_user.is_authenticated:
-        return redirect(url_for("index")) # 如果已经登录，直接跳转到首页
+    # if current_user.is_authenticated:
+    #     return redirect(url_for("index")) # 如果已经登录，直接跳转到首页
     regist_form = RegistForm()
     if regist_form.validate_on_submit():
         user = User(username=regist_form.username.data)
@@ -71,6 +71,10 @@ def user(name):
 @app.route('/course_page')
 def course_page():
     return render_template('course_page.html')
+
+@app.route('/courses_group')
+def courses_page():
+    return render_template('courses_group.html')
 
 # 查询课程列表
 @app.route('/course/<course_model>', methods=['GET'])
