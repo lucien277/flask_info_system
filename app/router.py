@@ -62,10 +62,10 @@ def regist():
     return render_template('regist.html',title="regist",form=regist_form)
 
 # 个人主页
-@app.route('/user/<name>')
-@login_required
-def user(name):
-    return render_template('user.html',name=name)
+@app.route('/user')
+# @login_required
+def user():
+    return render_template('admin/user.html')
 
 # 专业课程页面
 @app.route('/course_page')
